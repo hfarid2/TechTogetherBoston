@@ -12,7 +12,7 @@ void setup() {
 void loop() {
    temp = analogRead(tempPin);
    // read analog volt from sensor and save to variable temp
-   // calibration nonsense ie I Want To Cry
+   // calibration nonsense
    temp -= 200;
    temp /= 25.0;
    // convert the analog volt to its temperature equivalent
@@ -23,11 +23,11 @@ void loop() {
 
    // turn on the fan if temperature is above 22 deg 
    // turn on the LED if temperature is below 19 deg
-   if (temp < 19) {
+   if (temp < 0) {
      digitalWrite (ledPin, HIGH);
      digitalWrite (fanPin, LOW);
    }
-   else if (temp > 22) {
+   else if (temp > 35) {
      digitalWrite (ledPin, LOW);
      digitalWrite (fanPin, HIGH);
    }
