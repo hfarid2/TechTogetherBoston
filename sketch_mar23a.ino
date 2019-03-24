@@ -12,24 +12,33 @@
  * 
  */
 
-//step 1: Temperature sensor 
-/* senses temperatures for the phone
- *  would ideally be added into a phone (or out a little bit like the mic etc.
- *  this is to just collect data really
- * 
- */
- /*
-  * step 2: if then statements 
-  * fan turns on IF temp is outside of the allowable parameter we set
-  * ????? AT HWAT TEMP DO WE MAKE IT DO THE THING??????
-  */
+float temp;
+int tempPin = 0;
+int ledPin = 8;
 
 void setup() {
-  pinMode(8, OUTPUT);
+   Serial.begin(9600);
+   pinMode(ledPin, OUTPUT);
 }
+
 void loop() {
-  digitalWrite(8, HIGH);   
-  delay(1000);              
-  digitalWrite(8, LOW);   
-  delay(1000);             
+   temp = analogRead(tempPin);
+   // read analog volt from sensor and save to variable temp
+   // calibration nonsense ie I Want To Cry
+   temp -= 200;
+   temp /= 25.0;
+   // convert the analog volt to its temperature equivalent
+   Serial.print("TEMPERATURE = ");
+   Serial.print(temp); // display temperature value
+   Serial.print("*C");
+   Serial.println();
+
+   // turn on the LED if temperature is above 22 deg 
+   if (temp > 22) {
+     digitalWrite (ledPin, HIGH);
+   }
+   else
+     digitalWrite (ledPin, LOW);
+   
+   delay(3000); // update sensor reading each three seconds
 }
